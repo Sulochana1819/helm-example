@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Sulochana1819/helm-example
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml 
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default 
+  syncPolicy:
+    automated:
+      prune: true # Automatically remove resources not specified in the application
+      selfHeal: true # Automatically correct resources that are out of sync
+
